@@ -1,0 +1,105 @@
+apply plugin: 'java-library'
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+sourceCompatibility = 1.11
+def baseVersion = '3.9.4'
+def baseGroupId = 'io.github.adempiere'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+if (JavaVersion.current().isJava8Compatible()) {
+    allprojects {
+        tasks.withType(Javadoc) {
+            options.addStringOption('Xdoclint:none', '-quiet')
+        }
+    }
+}
+
+dependencies {
+   api fileTree(
+        dir: 'lib',
+        include: [
+            '*.jar'
+        ]
+    )
+    //	ADempiere Core
+    api "${baseGroupId}:base:${baseVersion}"
+}
+
+sourceSets {
+    main {
+         java {
+            srcDirs = ['src/main/java']
+         }
+    }
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+signing {
+    sign configurations.archives
+}
+
+def entityType = 'D'
+version = "1.0.0"
+
+jar {
+    manifest {
+        attributes("Implementation-Title": "Adempiere Template Management",
+                   "Implementation-Version": version, 
+                   "EntityType": entityType)
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+            credentials {
+                username = ossrhUsername ?: System.getenv("OSSRH_USER_NAME")
+                password = ossrhPassword ?: System.getenv("OSSRH_PASSWORD")
+            }
+        }
+    }
+    publications {
+        mavenJava(MavenPublication) {
+        	groupId 'io.github.adempiere'
+            artifactId 'template-support-legacy'
+            version
+           	from components.java
+           	pom {
+                name = 'Template'
+                description = 'Legacy library for old implementations of template management. Please note that this library will be deprecated'
+                url = 'http://adempiere.io/'
+                licenses {
+                    license {
+                        name = 'GNU General Public License, version 2'
+                        url = 'https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'yamelsenih'
+                        name = 'Yamel Senih'
+                        email = 'ysenih@erpya.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/adempiere/adempiere-template-support-legacy.git'
+                    developerConnection = 'scm:git:ssh://github.com/adempiere/adempiere-template-support-legacy.git'
+                    url = 'http://github.com/adempiere/adempiere-template-support-legacy'
+                }
+            }
+		}
+	}
+}
+
+signing {
+    sign publishing.publications.mavenJava
+}
