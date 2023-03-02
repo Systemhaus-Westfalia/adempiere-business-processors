@@ -10,13 +10,11 @@ repositories {
     mavenCentral()
 }
 
-if (JavaVersion.current().isJava8Compatible()) {
-    allprojects {
-        tasks.withType(Javadoc) {
-            options.addStringOption('Xdoclint:none', '-quiet')
-        }
-    }
-}
+allprojects {
+    tasks.withType(Javadoc) {
+    	options.addStringOption('Xdoclint:none', '-quiet')
+ 	}
+ }
 
 dependencies {
    api fileTree(
@@ -70,12 +68,12 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
         	groupId 'io.github.adempiere'
-            artifactId 'template-support-legacy'
+            artifactId 'adempiere-business-processors'
             version
            	from components.java
            	pom {
-                name = 'Template'
-                description = 'Legacy library for old implementations of template management. Please note that this library will be deprecated'
+                name = 'ADempiere Business Processors'
+                description = 'A project to convert all processors to process and call it from extern services'
                 url = 'http://adempiere.io/'
                 licenses {
                     license {
@@ -91,9 +89,9 @@ publishing {
                     }
                 }
                 scm {
-                    connection = 'scm:git:git://github.com/adempiere/adempiere-template-support-legacy.git'
-                    developerConnection = 'scm:git:ssh://github.com/adempiere/adempiere-template-support-legacy.git'
-                    url = 'http://github.com/adempiere/adempiere-template-support-legacy'
+                    connection = 'scm:git:git://github.com/adempiere/adempiere-business-processors.git'
+                    developerConnection = 'scm:git:ssh://github.com/adempiere/adempiere-business-processors.git'
+                    url = 'http://github.com/adempiere/adempiere-business-processors'
                 }
             }
 		}
@@ -101,5 +99,12 @@ publishing {
 }
 
 signing {
+    sign publishing.publications.mavenJava
+}
+
+signing {
+	def signingKey = findProperty("signingKey")
+    def signingPassword = findProperty("signingPassword")
+    useInMemoryPgpKeys(signingKey, signingPassword)
     sign publishing.publications.mavenJava
 }
