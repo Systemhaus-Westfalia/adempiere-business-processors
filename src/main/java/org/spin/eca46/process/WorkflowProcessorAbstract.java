@@ -20,35 +20,35 @@ package org.spin.eca46.process;
 
 import org.compiere.process.SvrProcess;
 
-/** Generated Process for (Workflow Processor)
+/** Generated Process for (Run Workflow Processor)
  *  @author ADempiere (generated) 
  *  @version Release 3.9.4
  */
 public abstract class WorkflowProcessorAbstract extends SvrProcess {
 	/** Process Value 	*/
-	private static final String VALUE_FOR_PROCESS = "ECA46_Project_Processor";
+	private static final String VALUE_FOR_PROCESS = "ECA46_Run_Workflow_Processor";
 	/** Process Name 	*/
-	private static final String NAME_FOR_PROCESS = "Workflow Processor";
+	private static final String NAME_FOR_PROCESS = "Run Workflow Processor";
 	/** Process Id 	*/
 	private static final int ID_FOR_PROCESS = 1000003;
 	/**	Parameter Name for Workflow Processor	*/
 	public static final String AD_WORKFLOWPROCESSOR_ID = "AD_WorkflowProcessor_ID";
 	/**	Parameter Value for Workflow Processor	*/
-	private int workflowProcessor;
+	private int workflowProcessorId;
 
 	@Override
 	protected void prepare() {
-		workflowProcessor = getParameterAsInt(AD_WORKFLOWPROCESSOR_ID);
+		workflowProcessorId = getParameterAsInt(AD_WORKFLOWPROCESSOR_ID);
 	}
 
 	/**	 Getter Parameter Value for Workflow Processor	*/
-	protected int getWorkflowProcessor() {
-		return workflowProcessor;
+	protected int getWorkflowProcessorId() {
+		return workflowProcessorId;
 	}
 
 	/**	 Setter Parameter Value for Workflow Processor	*/
-	protected void setWorkflowProcessor(int workflowProcessor) {
-		this.workflowProcessor = workflowProcessor;
+	protected void setWorkflowProcessorId(int workflowProcessorId) {
+		this.workflowProcessorId = workflowProcessorId;
 	}
 
 	/**	 Getter Parameter Value for Process ID	*/

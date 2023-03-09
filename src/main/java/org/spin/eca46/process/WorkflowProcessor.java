@@ -66,10 +66,10 @@ public class WorkflowProcessor extends WorkflowProcessorAbstract {
 	@Override
 	protected void prepare() {
 		super.prepare();
-		if(getWorkflowProcessor() <= 0) {
+		if(getWorkflowProcessorId() <= 0) {
 			throw new AdempiereException("@AD_WorkflowProcessor_ID@ @NotFound@");
 		}
-		workflowProcessor = new MWorkflowProcessor(getCtx(), getWorkflowProcessor(), get_TrxName());
+		workflowProcessor = new MWorkflowProcessor(getCtx(), getWorkflowProcessorId(), get_TrxName());
 		client = MClient.get(getCtx(), workflowProcessor.getAD_Client_ID());
 	}
 
