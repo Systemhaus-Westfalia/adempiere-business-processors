@@ -13,8 +13,8 @@ repositories {
 allprojects {
     tasks.withType(Javadoc) {
     	options.addStringOption('Xdoclint:none', '-quiet')
- 	}
- }
+   	}
+}
 
 dependencies {
    api fileTree(
@@ -25,6 +25,7 @@ dependencies {
     )
     //	ADempiere Core
     api "${baseGroupId}:base:${baseVersion}"
+    api "${baseGroupId}:project:${baseVersion}"
 }
 
 sourceSets {
