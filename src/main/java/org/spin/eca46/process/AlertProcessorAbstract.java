@@ -20,35 +20,35 @@ package org.spin.eca46.process;
 
 import org.compiere.process.SvrProcess;
 
-/** Generated Process for (Run Acct Processor)
+/** Generated Process for (Run Alert Processor)
  *  @author ADempiere (generated) 
  *  @version Release 3.9.4
  */
-public abstract class AcctProcessorAbstract extends SvrProcess {
+public abstract class AlertProcessorAbstract extends SvrProcess {
 	/** Process Value 	*/
-	private static final String VALUE_FOR_PROCESS = "ECA46_Run_Acct_Processor";
+	private static final String VALUE_FOR_PROCESS = "ECA46_Run_Alert_Processor";
 	/** Process Name 	*/
-	private static final String NAME_FOR_PROCESS = "Run Acct Processor";
+	private static final String NAME_FOR_PROCESS = "Run Alert Processor";
 	/** Process Id 	*/
-	private static final int ID_FOR_PROCESS = 54657;
-	/**	Parameter Name for Accounting Processor	*/
-	public static final String C_ACCTPROCESSOR_ID = "C_AcctProcessor_ID";
-	/**	Parameter Value for Accounting Processor	*/
-	private int acctProcessorId;
+	private static final int ID_FOR_PROCESS = 54662;
+	/**	Parameter Name for Alert Processor	*/
+	public static final String AD_ALERTPROCESSOR_ID = "AD_AlertProcessor_ID";
+	/**	Parameter Value for Alert Processor	*/
+	private int alertProcessorId;
 
 	@Override
 	protected void prepare() {
-		acctProcessorId = getParameterAsInt(C_ACCTPROCESSOR_ID);
+		alertProcessorId = getParameterAsInt(AD_ALERTPROCESSOR_ID);
 	}
 
-	/**	 Getter Parameter Value for Accounting Processor	*/
-	protected int getAcctProcessorId() {
-		return acctProcessorId;
+	/**	 Getter Parameter Value for Alert Processor	*/
+	protected int getAlertProcessorId() {
+		return alertProcessorId;
 	}
 
-	/**	 Setter Parameter Value for Accounting Processor	*/
-	protected void setAcctProcessorId(int acctProcessorId) {
-		this.acctProcessorId = acctProcessorId;
+	/**	 Setter Parameter Value for Alert Processor	*/
+	protected void setAlertProcessorId(int alertProcessorId) {
+		this.alertProcessorId = alertProcessorId;
 	}
 
 	/**	 Getter Parameter Value for Process ID	*/
