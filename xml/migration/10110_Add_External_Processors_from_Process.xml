@@ -1120,12 +1120,12 @@
     </Step>
     <Step SeqNo="510" StepType="AD">
       <PO AD_Table_ID="284" Action="U" Record_ID="54662" Table="AD_Process">
-        <Data AD_Column_ID="6485" Column="EntityType" oldValue="U">ECA10</Data>
+        <Data AD_Column_ID="6485" Column="EntityType" oldValue="U">ECA46</Data>
       </PO>
     </Step>
     <Step SeqNo="520" StepType="AD">
       <PO AD_Table_ID="285" Action="U" Record_ID="58842" Table="AD_Process_Para">
-        <Data AD_Column_ID="7728" Column="EntityType" oldValue="U">ECA10</Data>
+        <Data AD_Column_ID="7728" Column="EntityType" oldValue="U">ECA46</Data>
       </PO>
     </Step>
   </Migration>
