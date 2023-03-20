@@ -4,8 +4,8 @@
   <a href="https://adoptium.net/es/temurin/releases/?version=11">
     <img src="https://badgen.net/badge/Java/11/orange" alt="Java">
   </a>
-  <a href="https://github.com/adempiere/adempiere-business-processors/actions/workflows/ci.yml">
-    <img src="https://github.com/adempiere/adempiere-business-processors/actions/workflows/ci.yml/badge.svg" alt="Build GH Action">
+  <a href="https://github.com/adempiere/adempiere-business-processors/actions/workflows/build.yml">
+    <img src="https://github.com/adempiere/adempiere-business-processors/actions/workflows/build.yml/badge.svg" alt="Build GH Action">
   </a>
   <a href="https://github.com/adempiere/adempiere-business-processors/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/license-GNU/GPL%20(v2)-blue" alt="License">
