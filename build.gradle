@@ -1,6 +1,9 @@
-apply plugin: 'java-library'
-apply plugin: 'maven-publish'
-apply plugin: 'signing'
+plugins {
+	id 'java-library'
+	id 'maven-publish'
+	id 'signing'
+}
+
 sourceCompatibility = 1.11
 def baseVersion = '3.9.4'
 def baseGroupId = 'io.github.adempiere'
@@ -49,12 +52,9 @@ java {
     withSourcesJar()
 }
 
-signing {
-    sign configurations.archives
-}
 
 def entityType = 'D'
-version = "1.0.0"
+def version = System.getenv("ADEMPIERE_LIBRARY_VERSION") ?: "local-1.0.0"
 
 jar {
     manifest {
@@ -66,6 +66,8 @@ jar {
 
 publishing {
     repositories {
+		mavenLocal()
+
         maven {
             url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
             credentials {
@@ -108,10 +110,17 @@ publishing {
 }
 
 signing {
-    sign publishing.publications.mavenJava
-}
+	def isReleaseVersion = !version.toString().startsWith("local") && !version.toString().endsWith("-SNAPSHOT")
 
-signing {
+	sign configurations.archives
+
+	setRequired {
+		// signing is required if this is a release version and the artifacts are to be published
+		// do not use hasTask() as this require realization of the tasks that maybe are not necessary
+		isReleaseVersion && gradle.taskGraph.allTasks.any {
+			it.equals(PublishToMavenRepository)
+		}
+	}
 	def signingKey = findProperty("signingKey")
     def signingPassword = findProperty("signingPassword")
     useInMemoryPgpKeys(signingKey, signingPassword)
