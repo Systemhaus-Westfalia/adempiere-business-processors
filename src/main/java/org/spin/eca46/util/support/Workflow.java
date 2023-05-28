@@ -38,8 +38,8 @@ public class Workflow implements IProcessorEntity {
 	}
 	
 	/**
-	 * Set category
-	 * @param category
+	 * Set Workflow Processor
+	 * @param processor
 	 * @return
 	 */
 	public Workflow withWorkflowProcessor(MWorkflowProcessor processor) {

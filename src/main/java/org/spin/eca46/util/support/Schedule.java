@@ -37,8 +37,8 @@ public class Schedule implements IProcessorEntity {
 	}
 	
 	/**
-	 * Set category
-	 * @param category
+	 * Set Scheduler Processor
+	 * @param processor
 	 * @return
 	 */
 	public Schedule withSchedulerProcessor(MScheduler processor) {

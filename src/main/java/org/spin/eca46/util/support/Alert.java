@@ -37,8 +37,8 @@ public class Alert implements IProcessorEntity {
 	}
 	
 	/**
-	 * Set category
-	 * @param category
+	 * Set Alert Processor
+	 * @param processor
 	 * @return
 	 */
 	public Alert withAlertProcessor(MAlertProcessor processor) {
