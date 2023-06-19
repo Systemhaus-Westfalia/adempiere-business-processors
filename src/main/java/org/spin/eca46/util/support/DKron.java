@@ -77,6 +77,9 @@ public class DKron implements IExternalProcessor {
 		if(Util.isEmpty(adempiereToken)) {
 			throw new AdempiereException("@Token@ @NotFound@");
 		}
+		if(registration.getPort() > 0) {
+			dKronHost = dKronHost + ":" + registration.getPort();
+		}
 	}
 
 	@Override
@@ -97,7 +100,7 @@ public class DKron implements IExternalProcessor {
 
 	@Override
 	public String exportProcessor(IProcessorEntity processor) {
-		Invocation.Builder invocationBuilder = getClient().target("http://localhost:8080")
+		Invocation.Builder invocationBuilder = getClient().target(dKronHost)
 				.path("v1")
 				.path("jobs")
     			.request(MediaType.APPLICATION_JSON)
