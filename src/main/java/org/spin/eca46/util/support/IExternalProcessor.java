@@ -27,4 +27,16 @@ public interface IExternalProcessor extends IAppSupport {
 	 * @param processor
 	 */
 	public String exportProcessor(IProcessorEntity processor);
+	
+	/**
+	 * Set token for connect with ADempiere
+	 * @param token
+	 */
+	public void setTokenAccess(String token);
+	
+	/**
+	 * Set host for connect with ADempiere
+	 * @param host
+	 */
+	public void setHost(String host);
 }

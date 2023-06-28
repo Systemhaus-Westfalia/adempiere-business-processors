@@ -78,7 +78,7 @@ public class CreateDKron implements ISetupDefinition {
 		registration.setDescription(DESCRIPTION);
 		registration.setVersionNo("1.0");
 		//	dKron host and endpoint
-		registration.setHost("http://localhost:8080/v1/jobs");
+		registration.setHost("http://localhost");
 		registration.setPort(8080);
 		registration.setTimeout(0);
 		registration.saveEx();

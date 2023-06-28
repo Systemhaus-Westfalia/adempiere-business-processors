@@ -48,10 +48,11 @@ public class DKron implements IExternalProcessor {
 	private String adempiereToken = null;
 	/**	ADempiere Host	*/
 	private String adempiereHost = null;
+	/**	ADempiere Endpoint	*/
+	private String adempiereEndpoint = null;
 	/**	Registration Id	*/
 	private int registrationId = 0;
-	private final String ADEMPIERE_TOKEN = "adempiere_token";
-	private final String ADEMPIERE_HOST = "adempiere_host";
+	private final String ADEMPIERE_ENDPOINT = "adempiere_endpoint";
 	
 	
 	/**
@@ -62,24 +63,12 @@ public class DKron implements IExternalProcessor {
 			throw new AdempiereException("@AD_AppRegistration_ID@ @NotFound@");
 		}
 		MADAppRegistration registration = MADAppRegistration.getById(Env.getCtx(), getAppRegistrationId(), null);
-		adempiereHost = registration.getParameterValue(ADEMPIERE_HOST);
-		adempiereToken = registration.getParameterValue(ADEMPIERE_TOKEN);
+		adempiereEndpoint = registration.getParameterValue(ADEMPIERE_ENDPOINT);
 		dKronHost = registration.getHost();
-		//	dKron Host
-		if(Util.isEmpty(dKronHost)) {
-			throw new AdempiereException("@Host@ @NotFound@");
-		}
-		//	ADempiere Host
-		if(Util.isEmpty(adempiereHost)) {
-			throw new AdempiereException("ADempiere @Host@ @NotFound@");
-		}
-		//	ADempiere Token
-		if(Util.isEmpty(adempiereToken)) {
-			throw new AdempiereException("@Token@ @NotFound@");
-		}
 		if(registration.getPort() > 0) {
 			dKronHost = dKronHost + ":" + registration.getPort();
 		}
+		dKronHost = dKronHost + "/v1/jobs";
 	}
 
 	@Override
@@ -100,6 +89,22 @@ public class DKron implements IExternalProcessor {
 
 	@Override
 	public String exportProcessor(IProcessorEntity processor) {
+		//	dKron Host
+		if(Util.isEmpty(dKronHost)) {
+			throw new AdempiereException("@Host@ @NotFound@");
+		}
+		//	ADempiere Host
+		if(Util.isEmpty(adempiereHost)) {
+			throw new AdempiereException("ADempiere @Host@ @NotFound@");
+		}
+		//	ADempiere Token
+		if(Util.isEmpty(adempiereToken)) {
+			throw new AdempiereException("@Token@ @NotFound@");
+		}
+		//	ADempiere Endpoint
+		if(Util.isEmpty(adempiereEndpoint)) {
+			throw new AdempiereException("@Endpoint@ @NotFound@");
+		}
 		Invocation.Builder invocationBuilder = getClient().target(dKronHost)
 				.path("v1")
 				.path("jobs")
@@ -134,7 +139,7 @@ public class DKron implements IExternalProcessor {
 		data.put("executor", "http");
 		Map<String, Object> executorConfig = new HashMap<>();
 		executorConfig.put("method", "POST");
-		executorConfig.put("url", adempiereHost);
+		executorConfig.put("url", getAdempiereService());
 		List<String> headers = new ArrayList<>();
 		headers.add("\"Authorization: Bearer " + adempiereToken + "\"");
 		headers.add("\"Content-Type: application/json\"");
@@ -239,5 +244,19 @@ public class DKron implements IExternalProcessor {
 	public Client getClient() {
 		return ClientBuilder.newClient(new ClientConfig())
 		.property(HttpUrlConnectorProvider.SET_METHOD_WORKAROUND, true);
+	}
+
+	@Override
+	public void setTokenAccess(String token) {
+		adempiereToken = token;
+	}
+
+	@Override
+	public void setHost(String host) {
+		adempiereHost = host;
+	}
+	
+	private String getAdempiereService() {
+		return adempiereHost + adempiereEndpoint;
 	}
 }

@@ -22,11 +22,13 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.adempiere.core.domains.models.I_AD_AlertProcessor;
+import org.adempiere.core.domains.models.I_AD_Role;
 import org.adempiere.core.domains.models.I_AD_Scheduler;
 import org.adempiere.core.domains.models.I_AD_WorkflowProcessor;
 import org.adempiere.core.domains.models.I_C_AcctProcessor;
 import org.adempiere.core.domains.models.I_C_ProjectProcessor;
 import org.adempiere.core.domains.models.I_R_RequestProcessor;
+import org.adempiere.exceptions.AdempiereException;
 import org.compiere.model.MAcctProcessor;
 import org.compiere.model.MAlertProcessor;
 import org.compiere.model.MRequestProcessor;
@@ -45,6 +47,10 @@ import org.spin.eca46.util.support.Request;
 import org.spin.eca46.util.support.Schedule;
 import org.spin.eca46.util.support.Workflow;
 import org.spin.model.MADAppRegistration;
+import org.spin.model.MADTokenDefinition;
+import org.spin.util.IThirdPartyAccessGenerator;
+import org.spin.util.ITokenGenerator;
+import org.spin.util.TokenGeneratorHandler;
 import org.spin.util.support.AppSupportHandler;
 import org.spin.util.support.IAppSupport;
 
@@ -103,6 +109,8 @@ public class ExportInternalProcessors extends ExportInternalProcessorsAbstract {
 				&& IExternalProcessor.class.isAssignableFrom(supportedApplication.getClass())) {
 			//	Instance of dKron Processor
 			IExternalProcessor dKronProcessor = (IExternalProcessor) supportedApplication;
+			dKronProcessor.setHost(getHost());
+			dKronProcessor.setTokenAccess(getToken());
 			processorsList.forEach(processor -> {
 				String result = dKronProcessor.exportProcessor(processor);
 				counter.incrementAndGet();
@@ -112,5 +120,33 @@ public class ExportInternalProcessors extends ExportInternalProcessorsAbstract {
 			});
 		}
 		return "@Created@: " + counter.get();
+	}
+	
+	private String getToken() {
+		try {
+			//	Validate user and password match
+			boolean match = new Query(getCtx(), I_AD_Role.Table_Name, 
+					"EXISTS(SELECT 1 FROM AD_User_Roles ur "
+					+ "WHERE ur.AD_Role_ID = AD_Role.AD_Role_ID "
+					+ "AND ur.AD_User_ID = ?)", get_TrxName())
+					.setParameters(getUserId())
+					.match();
+			if(!match) {
+				throw new AdempiereException("@AD_User_ID@ / @AD_Role_ID@ @Mismatched@");
+			}
+			ITokenGenerator generator = TokenGeneratorHandler.getInstance().getTokenGenerator(MADTokenDefinition.TOKENTYPE_ThirdPartyAccess);
+			if(generator == null) {
+				throw new AdempiereException("@AD_TokenDefinition_ID@ @NotFound@");
+			}
+			//	No child of definition
+			if(!IThirdPartyAccessGenerator.class.isAssignableFrom(generator.getClass())) {
+				throw new AdempiereException("@AD_TokenDefinition_ID@ @Invalid@");	
+			}
+			//	Generate
+			IThirdPartyAccessGenerator thirdPartyAccessGenerator = ((IThirdPartyAccessGenerator) generator);
+			return thirdPartyAccessGenerator.generateToken(getUserId(), getRoleId());
+		} catch (Exception e) {
+			throw new AdempiereException(e);
+		}
 	}
 }
