@@ -68,7 +68,6 @@ public class DKron implements IExternalProcessor {
 		if(registration.getPort() > 0) {
 			dKronHost = dKronHost + ":" + registration.getPort();
 		}
-		dKronHost = dKronHost + "/v1/jobs";
 	}
 
 	@Override
