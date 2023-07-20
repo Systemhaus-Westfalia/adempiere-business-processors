@@ -26,11 +26,11 @@ import org.compiere.process.SvrProcess;
  */
 public abstract class RequestProcessorAbstract extends SvrProcess {
 	/** Process Value 	*/
-	private static final String VALUE_FOR_PROCESS = "ECA46_Request_Processor";
+	private static final String VALUE_FOR_PROCESS = "ECA46_Run_Request_Processor";
 	/** Process Name 	*/
 	private static final String NAME_FOR_PROCESS = "Request Processor";
 	/** Process Id 	*/
-	private static final int ID_FOR_PROCESS = 1000000;
+	private static final int ID_FOR_PROCESS = 54660;
 	/**	Parameter Name for Request Processor	*/
 	public static final String R_REQUESTPROCESSOR_ID = "R_RequestProcessor_ID";
 	/**	Parameter Value for Request Processor	*/

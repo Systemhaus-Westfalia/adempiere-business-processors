@@ -26,11 +26,11 @@ import org.compiere.process.SvrProcess;
  */
 public abstract class ProjectProcessorAbstract extends SvrProcess {
 	/** Process Value 	*/
-	private static final String VALUE_FOR_PROCESS = "ECA46_Project_Processor";
+	private static final String VALUE_FOR_PROCESS = "ECA46_Run_Project_Processor";
 	/** Process Name 	*/
 	private static final String NAME_FOR_PROCESS = "Project Processor";
 	/** Process Id 	*/
-	private static final int ID_FOR_PROCESS = 1000001;
+	private static final int ID_FOR_PROCESS = 54658;
 	/**	Parameter Name for Project Processor	*/
 	public static final String C_PROJECTPROCESSOR_ID = "C_ProjectProcessor_ID";
 	/**	Parameter Value for Project Processor	*/

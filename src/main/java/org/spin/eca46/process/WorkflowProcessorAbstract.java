@@ -30,7 +30,7 @@ public abstract class WorkflowProcessorAbstract extends SvrProcess {
 	/** Process Name 	*/
 	private static final String NAME_FOR_PROCESS = "Run Workflow Processor";
 	/** Process Id 	*/
-	private static final int ID_FOR_PROCESS = 1000003;
+	private static final int ID_FOR_PROCESS = 54659;
 	/**	Parameter Name for Workflow Processor	*/
 	public static final String AD_WORKFLOWPROCESSOR_ID = "AD_WorkflowProcessor_ID";
 	/**	Parameter Value for Workflow Processor	*/

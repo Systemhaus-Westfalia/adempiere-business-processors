@@ -26,11 +26,11 @@ import org.compiere.process.SvrProcess;
  */
 public abstract class SchedulerProcessorAbstract extends SvrProcess {
 	/** Process Value 	*/
-	private static final String VALUE_FOR_PROCESS = "ECA46_Scheduler_Processor";
+	private static final String VALUE_FOR_PROCESS = "ECA46_Run_Scheduler_Processor";
 	/** Process Name 	*/
 	private static final String NAME_FOR_PROCESS = "Scheduler Processor";
 	/** Process Id 	*/
-	private static final int ID_FOR_PROCESS = 1000004;
+	private static final int ID_FOR_PROCESS = 54661;
 	/**	Parameter Name for Scheduler	*/
 	public static final String AD_SCHEDULER_ID = "AD_Scheduler_ID";
 	/**	Parameter Value for Scheduler	*/
