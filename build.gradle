@@ -5,8 +5,8 @@ plugins {
 }
 
 sourceCompatibility = 1.11
-def baseVersion = '3.9.4'
-def baseGroupId = 'io.github.adempiere'
+def baseVersion = 'shw-air-terminal-vertical-1.0.57'
+def baseGroupId = 'com.erpya'
 
 repositories {
     mavenLocal()
@@ -110,9 +110,9 @@ publishing {
                     }
                 }
                 scm {
-                    connection = 'scm:git:git://github.com/adempiere/adempiere-business-processors.git'
-                    developerConnection = 'scm:git:ssh://github.com/adempiere/adempiere-business-processors.git'
-                    url = 'http://github.com/adempiere/adempiere-business-processors'
+                    connection = 'scm:git:git://github.com/Systemhaus-Westfalia/adempiere-business-processors.git'
+                    developerConnection = 'scm:git:ssh://github.com/Systemhaus-Westfalia/adempiere-business-processors.git'
+                    url = 'http://github.com/Systemhaus-Westfalia/adempiere-business-processors'
                 }
             }
 		}
