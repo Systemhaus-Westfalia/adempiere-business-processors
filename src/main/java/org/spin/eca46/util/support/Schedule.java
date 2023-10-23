@@ -91,4 +91,9 @@ public class Schedule implements IProcessorEntity {
 	public boolean isEnabled() {
 		return processor.isActive();
 	}
+
+	@Override
+	public int getProcessorType() {
+		return SCHEDULER;
+	}
 }

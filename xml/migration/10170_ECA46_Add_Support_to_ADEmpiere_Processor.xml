@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Migrations>
+  <Migration EntityType="ECA46" Name="ECA46 Add Support to ADEmpiere Processor" ReleaseNo="1.0" SeqNo="10170">
+    <Step SeqNo="10" StepType="AD">
+      <PO AD_Table_ID="54544" Action="U" Record_ID="50066" Table="AD_AppSupport_Para">
+        <Data AD_Column_ID="91389" Column="ParameterDefault" oldValue="/v1/process">/v1</Data>
+      </PO>
+    </Step>
+  </Migration>
+</Migrations>

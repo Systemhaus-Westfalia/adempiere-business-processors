@@ -21,6 +21,19 @@ package org.spin.eca46.util.support;
  */
 public interface IProcessorEntity {
 	
+	public static final int ACCOUNTING = 1;
+	public static final int PROJECT = 2;
+	public static final int REQUEST = 3;
+	public static final int ALERT = 4;
+	public static final int SCHEDULER = 5;
+	public static final int WORKFLOW = 6;
+	
+	/**
+	 * Get
+	 * @return
+	 */
+	public int getProcessorType();
+	
 	/**
 	 * Get Identifier of Entity
 	 * @return
