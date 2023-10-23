@@ -92,4 +92,10 @@ public class Project implements IProcessorEntity {
 	public boolean isEnabled() {
 		return processor.isActive();
 	}
+
+	@Override
+	public int getProcessorType() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

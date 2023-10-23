@@ -138,28 +138,39 @@ public class DKron implements IExternalProcessor {
 		data.put("executor", "http");
 		Map<String, Object> executorConfig = new HashMap<>();
 		executorConfig.put("method", "POST");
-		executorConfig.put("url", getAdempiereService());
+		executorConfig.put("url", getCompleteUrl(processor));
 		List<String> headers = new ArrayList<>();
 		headers.add("\"Authorization: Bearer " + adempiereToken + "\"");
 		headers.add("\"Content-Type: application/json\"");
 		executorConfig.put("headers", headers.toString());
-		Map<String, Object> process = new HashMap<>();
-		process.put("\"process_code\"", "\"" + processor.getProcessCode() + "\"");
-		Map<String, Object> parameters = new HashMap<>();
-		parameters.put("\"key\"", "\"" + processor.getProcessorParameterCode() + "\"");
-		parameters.put("\"integer_value\"", processor.getProcessorParameterId());
-		List<String> parameterList = new ArrayList<>();
-		parameterList.add(parameters.toString());
-		process.put("\"parameters\"", parameterList.toString());
-		Map<String, Object> body = new HashMap<>();
-		body.put("\"process\"", process.toString());
-		executorConfig.put("body", body.toString().replaceAll("=", ": "));
 		executorConfig.put("timeout", "60000");
 		executorConfig.put("expectCode", "200");
 		executorConfig.put("expectBody", "");
 		executorConfig.put("debug", "false");
 		data.put("executor_config", executorConfig);
 		return data;
+	}
+	
+	private String getCompleteUrl(IProcessorEntity processor) {
+		return getAdempiereService() + "/" + getProcessCode(processor) + "/" + Env.getAD_Client_ID(Env.getCtx()) + "/" + processor.getProcessorParameterId();
+	}
+	
+	private String getProcessCode(IProcessorEntity processor) {
+		if(processor.getProcessorType() == IProcessorEntity.ALERT) {
+			return "alert";
+		} else if(processor.getProcessorType() == IProcessorEntity.WORKFLOW) {
+			return "workflow";
+		} else if(processor.getProcessorType() == IProcessorEntity.ACCOUNTING) {
+			return "accounting";
+		} else if(processor.getProcessorType() == IProcessorEntity.REQUEST) {
+			return "request";
+		} else if(processor.getProcessorType() == IProcessorEntity.SCHEDULER) {
+			return "scheduler";
+		} else if(processor.getProcessorType() == IProcessorEntity.PROJECT) {
+			return "project";
+		} else {
+			throw new AdempiereException("@Processor@ @NotFound@");
+		}
 	}
 	
 	private String getSchedule(IProcessorEntity processor) {

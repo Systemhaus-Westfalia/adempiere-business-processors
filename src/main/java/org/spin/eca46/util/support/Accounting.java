@@ -91,4 +91,9 @@ public class Accounting implements IProcessorEntity {
 	public boolean isEnabled() {
 		return processor.isActive();
 	}
+
+	@Override
+	public int getProcessorType() {
+		return ACCOUNTING;
+	}
 }

@@ -91,4 +91,9 @@ public class Alert implements IProcessorEntity {
 	public boolean isEnabled() {
 		return processor.isActive();
 	}
+
+	@Override
+	public int getProcessorType() {
+		return ALERT;
+	}
 }
